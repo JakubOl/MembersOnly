@@ -1,0 +1,30 @@
+<% layout('./layouts/boilerplate')%> 
+<div>You are: <% if(currentUser && currentUser.admin){ %><b>ADMIN</b>
+<% } else if (currentUser) { %>
+  <b>USER</b>
+<% } else { %>
+  <b>Not logged in</b>
+<% } %>  
+</div>
+ 
+<% for(let message of messages){ %>
+<div class="card my-2">
+  <div class="card-body">
+  <% if(currentUser && currentUser.admin){ %> 
+    <h6 class="card-subtitle mb-2 text-muted">
+      By: <%= message.user.username %> 
+    </h6>
+  <% } %> 
+    <h4 class="card-title"><%= message.title %></h5>
+    <p class="card-text"><%= message.text %></p>
+  <% if(currentUser && currentUser.admin){ %> 
+<p class="card-subtitle text-muted mt-2">
+CreatedAt: <%= message.formated_date %>
+    </p>
+  <form action="/messages/<%=message._id%>?_method=DELETE" method="POST">
+      <button class="btn btn-sm btn-danger">Delete</button>
+  </form>
+  <% } %> 
+  </div>
+</div>
+<% } %>

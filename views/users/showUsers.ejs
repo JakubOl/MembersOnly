@@ -1,0 +1,12 @@
+<% layout('./layouts/boilerplate')%> <% for(let user of users){ %>
+<div class="card my-2">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">
+      Username: <%= user.username %>
+    </h6>
+    <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
+      <button class="btn btn-sm btn-danger m-2">Delete</button>
+    </form>
+  </div>
+</div>
+<% } %>

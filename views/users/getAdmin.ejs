@@ -1,0 +1,15 @@
+<% layout('./layouts/boilerplate')%>
+<h1>Get Admin</h1>
+<form action="/getAdmin" method="POST">
+  <div class="form-group">
+    <label for="code">Type admin code: </label>
+    <input
+      type="text"
+      class="form-control"
+      id="code"
+      placeholder="Enter code"
+      name="code"
+      required
+    />
+  <button type="submit" class="btn btn-primary my-3">Submit</button>
+</form>
