@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Message = require("../models/Message");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { check, body, validationResult } = require("express-validator");
@@ -93,19 +94,19 @@ module.exports.getAdmin = async (req, res) => {
 
 module.exports.showUsers = async (req, res) => {
   try {
-    const users = await User.find();
-    console.log(users);
+    const users = await User.find({ _id: { $ne: res.locals.currentUser._id } });
     res.status(200).render("users/showUsers", { users });
   } catch (err) {
     res.status(500).json(err);
   }
 };
 module.exports.deleteUser = async (req, res) => {
-  const { _id } = req.body;
-  console.log(req.body);
+  const { id } = req.params;
   try {
-    await User.findByIdAndDelete(_id);
-    res.status(200).redirect("users/showUsers");
+    await User.findByIdAndDelete(id);
+    await Message.deleteMany({ user: id });
+    req.flash("success", "User deleted!");
+    res.status(200).redirect("/users");
   } catch (err) {
     res.status(500).json(err);
   }
