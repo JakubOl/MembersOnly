@@ -23,13 +23,13 @@
         <% if(!currentUser){ %>
         <a class="nav-link" href="/login">Login</a>
         <a class="nav-link" href="/register">Register</a>
-        <% }else if(currentUser && !currentUser.admin) {%>
+        <% }else if(currentUser) {%> <% if(!currentUser.admin) {%>
         <a class="nav-link" href="/getAdmin">Get Admin</a>
-        <% }if(currentUser){%> <% } %> <% if(currentUser && currentUser.admin){
-        %>
+        <% }else {%>
         <a class="nav-link" href="/users">All users</a>
         <% } %>
         <a class="nav-link" href="/logout">Logout</a>
+        <% } %>
       </div>
     </div>
   </div>
