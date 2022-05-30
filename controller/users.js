@@ -87,9 +87,12 @@ module.exports.getAdmin = async (req, res) => {
   const code = req.body.code;
   if (code === process.env.CODE) {
     await User.findByIdAndUpdate(id, { admin: true });
+    req.flash("success", "You are now ADMIN!");
+    res.status(200).redirect("/");
+  } else {
+    req.flash("error", "Wrong code!");
+    res.status(200).redirect("/getAdmin");
   }
-  req.flash("success", "You are now ADMIN!");
-  res.status(200).redirect("/");
 };
 
 module.exports.showUsers = async (req, res) => {

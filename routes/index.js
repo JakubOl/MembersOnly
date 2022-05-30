@@ -12,6 +12,7 @@ router
   .route("/login")
   .get(users.renderLogin)
   .post(users.loginAuthenticate, users.login);
+
 router.route("/logout").get(users.logout);
 
 router
